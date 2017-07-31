@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent">
+
+    <TextView
+        android:id="@+id/textSplash0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="THE"
+        android:textSize="30dp"
+        android:layout_centerInParent="true"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:fontFamily="casual"/>
+
+    <TextView
+        android:id="@+id/textSplash"
+        android:layout_below="@+id/textSplash0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MOVIE"
+        android:textSize="60dp"
+        android:layout_centerInParent="true"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:fontFamily="casual"/>
+
+    <TextView
+        android:id="@+id/textPart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textSplash0"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="50dp"
+        android:text="Part 2"
+        android:textColor="@color/colorWhite"
+        android:fontFamily="casual"
+        android:textSize="18dp"
+        android:layout_toRightOf="@+id/textSplash"/>
+
+    <TextView
+        android:id="@+id/textBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textSplash"
+        android:layout_centerInParent="true"
+        android:text="By Fauziyyah Faturahmah"
+        android:textColor="@color/colorWhite"
+        android:textSize="18dp"
+        android:fontFamily="cursive"/>
+
+</RelativeLayout>

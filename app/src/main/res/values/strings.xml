@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">The Movie 2</string>
+
+    <string name="setting">Setting</string>
+
+
+    <string name="sort_most_popular">Most Popular</string>
+    <string name="sort_top_rated">Top Rated</string>
+    <string name="sort_by_favorite">Favorite</string>
+
+
+    <string name="movieName">Name</string>
+</resources>

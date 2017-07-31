@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context="fasttrack.android.project.themovie.MainActivity">
+
+        <RelativeLayout
+            android:id="@+id/ibu"
+            android:layout_width="match_parent"
+            android:paddingLeft="10dp"
+            android:layout_height="250dp">
+
+            <TextView
+                android:id="@+id/textTitleMovie"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="The Avengers"
+                android:padding="3dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/detailImage"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/textTitleMovie"
+                android:layout_width="160dp"
+                android:layout_height="200dp"
+                android:padding="3dp"
+                android:src="@drawable/theavenger"
+                android:scaleType="centerCrop"/>
+
+
+            <TextView
+                android:id="@+id/textDateRelease0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/detailImage"
+                android:text="Release"
+                android:textSize="15dp"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:id="@+id/textDateRelease"
+                android:layout_below="@+id/textDateRelease0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/detailImage"
+                android:text="2012"
+                android:textSize="13dp"
+                android:textColor="@color/colorBlack"
+                android:layout_marginTop="1dp"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:id="@+id/textRatingMovie0"
+                android:layout_below="@+id/textDateRelease"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/detailImage"
+                android:text="Rating"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:id="@+id/textRatingMovie"
+                android:layout_below="@+id/textRatingMovie0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/detailImage"
+                android:text="8.0"
+                android:textSize="13dp"
+                android:textColor="@color/colorBlack"
+                android:layout_marginTop="1dp"
+                android:layout_marginLeft="20dp"/>
+
+            <Button
+                android:id="@+id/jadiFavorite"
+                android:layout_below="@+id/textRatingMovie"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_toRightOf="@+id/detailImage"
+                android:text="Mark as favorite"
+                android:textSize="8dp"
+                android:textColor="@color/colorBlack"
+                android:background="@drawable/orangebutton"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:onClick="FavoriteMovie"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textSynopsis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:text="Synopsis"
+                android:textColor="@color/colorBlack"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/textDetailSynopsis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:lines="5"
+                android:textSize="13dp"
+                tools:text="The Avengers...blablabla" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            style="@style/Divider"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
+
+            <TextView
+                android:id="@+id/textReview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:padding="10dp"
+                android:textSize="20dp"
+                android:text="Reviews" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/reviewList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp">
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            style="@style/Divider"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="15dp">
+
+            <TextView
+                android:id="@+id/Trailer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:padding="10dp"
+                android:textSize="20dp"
+                android:text="Trailers" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingLeft="15dp"
+                android:src="@drawable/ic_movie_icon" />
+
+            <TextView
+                android:id="@+id/trailerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:textSize="20dp"
+                android:textColor="@color/colorBlack"
+                android:text="Trailer"
+                android:onClick="ClickTrailerMovie"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
