@@ -1,7 +1,10 @@
 package fastttrack.android.project.themovie2.UI;
 
+import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
@@ -61,6 +64,7 @@ public class DetailMovie extends AppCompatActivity implements LoaderManager.Load
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_movie);
 
+
         data = new GsonBuilder().create().fromJson(this.getIntent().getStringExtra("movie"), Result.class);
 
         TextView titleMovie = (TextView) findViewById(R.id.textTitleMovie);
@@ -71,7 +75,6 @@ public class DetailMovie extends AppCompatActivity implements LoaderManager.Load
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.reviewList);
         TextView textReview = (TextView) findViewById(R.id.textReview);
         Button favorite = (Button) findViewById(R.id.jadiFavorite);
-        TextView trailerMovie = (TextView)findViewById(R.id.trailerText);
 
 
         titleMovie.setText(data.getTitle());
@@ -150,15 +153,29 @@ public class DetailMovie extends AppCompatActivity implements LoaderManager.Load
             @Override
             protected String doInBackground(String... params) {
                 RetrofitInterface retrofitInterface = NetworkUtils.getRetrofit().create(RetrofitInterface.class);
-                Call<Trailer> trailer = retrofitInterface.getMovieTrailer(String.valueOf(id), BuildConfig.MOVIE_API_KEY);
+                final Call<Trailer> trailer = retrofitInterface.getMovieTrailer(String.valueOf(id), BuildConfig.MOVIE_API_KEY);
                 trailer.enqueue(new Callback<Trailer>() {
                     @Override
                     public void onResponse(Call<Trailer> call, Response<Trailer> response) {
                         Log.d(MainActivity.class.getSimpleName(), "onResponse: ");
 
-//                        reviewList.clear();
-//                        reviewList.addAll(response.body().getResults());
-//                        reviewAdapter.notifyDataSetChanged();
+
+                        Button buttonYoutube = (Button)findViewById(R.id.trailerButton);
+                        buttonYoutube.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                try {
+                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
+                                    startActivity(intent);
+                                } catch (ActivityNotFoundException ex) {
+                                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                                            Uri.parse("http://www.youtube.com/watch?v=" + id));
+                                    startActivity(intent);
+
+                                }
+                            }
+
+                        });
                     }
 
                     @Override
@@ -170,6 +187,23 @@ public class DetailMovie extends AppCompatActivity implements LoaderManager.Load
             }
         }.execute();
     }
+
+
+
+//    private void ClickTrailerMovie (String id) {
+//
+//        try {
+//            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
+//            startActivity(intent);
+//        } catch (ActivityNotFoundException ex) {
+//            Intent intent = new Intent(Intent.ACTION_VIEW,
+//                    Uri.parse("http://www.youtube.com/watch?v=" + id));
+//            startActivity(intent);
+//
+//        }
+//    }
+
+
 
     //back button to home
     @Override

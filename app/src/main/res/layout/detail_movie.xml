@@ -217,8 +217,8 @@
                 android:paddingLeft="15dp"
                 android:src="@drawable/ic_movie_icon" />
 
-            <TextView
-                android:id="@+id/trailerText"
+            <Button
+                android:id="@+id/trailerButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -226,6 +226,7 @@
                 android:textSize="20dp"
                 android:textColor="@color/colorBlack"
                 android:text="Trailer"
+                android:background="@null"
                 android:onClick="ClickTrailerMovie"/>
 
         </LinearLayout>
