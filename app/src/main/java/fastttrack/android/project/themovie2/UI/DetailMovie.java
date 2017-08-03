@@ -28,6 +28,7 @@ import fastttrack.android.project.themovie2.BuildConfig;
 import fastttrack.android.project.themovie2.MainActivity;
 import fastttrack.android.project.themovie2.Model_Movie.Result;
 import fastttrack.android.project.themovie2.Model_Reviews.Reviews;
+import fastttrack.android.project.themovie2.Model_Trailer.Trailer;
 import fastttrack.android.project.themovie2.R;
 import fastttrack.android.project.themovie2.Utils.NetworkUtils;
 import retrofit2.Call;
@@ -90,7 +91,7 @@ public class DetailMovie extends AppCompatActivity implements LoaderManager.Load
         recyclerView.setAdapter(reviewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         moviewReview(data.getId());
-        //ClickTrailerMovie(data.getId());
+        ClickTrailerMovie(data.getId());
     }
 
 
@@ -142,32 +143,33 @@ public class DetailMovie extends AppCompatActivity implements LoaderManager.Load
 
     //showing trailer movie in detail activity
 
-//    private void ClickTrailerMovie(final int id){
-//
-//        new AsyncTask<String, String, String>() {
-//
-//            @Override
-//            protected String doInBackground(String... params) {
-//                RetrofitInterface retrofitInterface = NetworkUtils.getRetrofit().create(RetrofitInterface.class);
-//                Call<Trailer> trailer = retrofitInterface.getMovieTrailer(String.valueOf(id), BuildConfig.MOVIE_API_KEY);
-//                trailer.enqueue(new Callback<Trailer>() {
-//                    @Override
-//                    public void onResponse(Call<Trailer> call, Response<Trailer> response) {
-//                        Log.d(MainActivity.class.getSimpleName(), "onResponse: ");
+    private void ClickTrailerMovie(final int id){
+
+        new AsyncTask<String, String, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+                RetrofitInterface retrofitInterface = NetworkUtils.getRetrofit().create(RetrofitInterface.class);
+                Call<Trailer> trailer = retrofitInterface.getMovieTrailer(String.valueOf(id), BuildConfig.MOVIE_API_KEY);
+                trailer.enqueue(new Callback<Trailer>() {
+                    @Override
+                    public void onResponse(Call<Trailer> call, Response<Trailer> response) {
+                        Log.d(MainActivity.class.getSimpleName(), "onResponse: ");
+
 //                        reviewList.clear();
 //                        reviewList.addAll(response.body().getResults());
 //                        reviewAdapter.notifyDataSetChanged();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<Trailer> call, Throwable t) {
-//                        Log.e(MainActivity.class.getSimpleName(), "onFailure: ");
-//                    }
-//                });
-//                return "";
-//            }
-//        }.execute();
-//    }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Trailer> call, Throwable t) {
+                        Log.e(MainActivity.class.getSimpleName(), "onFailure: ");
+                    }
+                });
+                return "";
+            }
+        }.execute();
+    }
 
     //back button to home
     @Override

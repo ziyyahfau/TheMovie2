@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -90,17 +91,17 @@
 
             <Button
                 android:id="@+id/jadiFavorite"
-                android:layout_below="@+id/textRatingMovie"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_toRightOf="@+id/detailImage"
                 android:text="Mark as favorite"
                 android:textSize="8dp"
                 android:textColor="@color/colorBlack"
                 android:background="@drawable/orangebutton"
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="20dp"
-                android:onClick="FavoriteMovie"/>
+                android:onClick="FavoriteMovie"
+                android:layout_below="@+id/textRatingMovie"
+                android:layout_alignStart="@+id/textRatingMovie" />
 
         </RelativeLayout>
 
