@@ -164,15 +164,18 @@ public class DetailMovie extends AppCompatActivity implements LoaderManager.Load
                         buttonYoutube.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                try {
-                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
-                                    startActivity(intent);
-                                } catch (ActivityNotFoundException ex) {
-                                    Intent intent = new Intent(Intent.ACTION_VIEW,
-                                            Uri.parse("http://www.youtube.com/watch?v=" + id));
-                                    startActivity(intent);
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + id));
+                                startActivity(intent);
 
-                                }
+//                                try {
+//                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
+//                                    startActivity(intent);
+//                                } catch (ActivityNotFoundException ex) {
+//                                    Intent intent = new Intent(Intent.ACTION_VIEW,
+//                                            Uri.parse("http://www.youtube.com/watch?v=" + id));
+//                                    startActivity(intent);
+//
+//                                }
                             }
 
                         });
