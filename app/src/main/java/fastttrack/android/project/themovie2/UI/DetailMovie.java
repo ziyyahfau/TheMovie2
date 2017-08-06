@@ -94,7 +94,7 @@ public class DetailMovie extends AppCompatActivity implements LoaderManager.Load
         recyclerView.setAdapter(reviewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         moviewReview(data.getId());
-        ClickTrailerMovie(data.getId());
+        TrailerMovie(data.getId());
     }
 
 
@@ -146,7 +146,7 @@ public class DetailMovie extends AppCompatActivity implements LoaderManager.Load
 
     //showing trailer movie in detail activity
 
-    private void ClickTrailerMovie(final int id){
+    private void TrailerMovie(final int id){
 
         new AsyncTask<String, String, String>() {
 
@@ -156,15 +156,15 @@ public class DetailMovie extends AppCompatActivity implements LoaderManager.Load
                 final Call<Trailer> trailer = retrofitInterface.getMovieTrailer(String.valueOf(id), BuildConfig.MOVIE_API_KEY);
                 trailer.enqueue(new Callback<Trailer>() {
                     @Override
-                    public void onResponse(Call<Trailer> call, Response<Trailer> response) {
+                    public void onResponse(Call<Trailer> call, final Response<Trailer> response) {
                         Log.d(MainActivity.class.getSimpleName(), "onResponse: ");
-
 
                         Button buttonYoutube = (Button)findViewById(R.id.trailerButton);
                         buttonYoutube.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + id));
+                                String videoKey = response.body().getResults().get(0).getKey();
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + videoKey));
                                 startActivity(intent);
 
 //                                try {
