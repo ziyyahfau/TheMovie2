@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fastttrack.android.project.themovie2.Adapter.ReviewAdapter;
+import fastttrack.android.project.themovie2.Adapter.TrailerAdapter;
 import fastttrack.android.project.themovie2.BuildConfig;
 import fastttrack.android.project.themovie2.MainActivity;
 import fastttrack.android.project.themovie2.Model_Movie.Result;
@@ -56,8 +57,14 @@ public class DetailMovie extends AppCompatActivity implements LoaderManager.Load
     //@BindView(R.id.reviewList)
     RecyclerView ReviewList;
     Result data;
-    private List<fastttrack.android.project.themovie2.Model_Reviews.Result> reviewList = new ArrayList<>();
     private ReviewAdapter reviewAdapter;
+    private TrailerAdapter trailerAdapter;
+
+    //listadapter review movie
+    private List<fastttrack.android.project.themovie2.Model_Reviews.Result> reviewList = new ArrayList<>();
+
+    //list adapter trailer moview
+    private List<fastttrack.android.project.themovie2.Model_Trailer.Result> trailerList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +80,7 @@ public class DetailMovie extends AppCompatActivity implements LoaderManager.Load
         TextView ratingMovie = (TextView) findViewById(R.id.textRatingMovie);
         TextView synopsisMovie = (TextView) findViewById(R.id.textDetailSynopsis);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.reviewList);
+        RecyclerView recyclerViewTrailer = (RecyclerView)findViewById(R.id.trailerList) ;
         TextView textReview = (TextView) findViewById(R.id.textReview);
         Button favorite = (Button) findViewById(R.id.jadiFavorite);
 
@@ -90,11 +98,17 @@ public class DetailMovie extends AppCompatActivity implements LoaderManager.Load
                 .centerCrop()
                 .into(detailImage);
 
-        reviewAdapter = new ReviewAdapter(reviewList);
-        recyclerView.setAdapter(reviewAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        moviewReview(data.getId());
-        TrailerMovie(data.getId());
+        reviewAdapter = new ReviewAdapter(reviewList);  //review movie
+        trailerAdapter = new TrailerAdapter(trailerList); //trailer moview
+
+        recyclerViewTrailer.setAdapter(trailerAdapter); //trailer moview
+        recyclerView.setAdapter(reviewAdapter); //review movie
+
+        recyclerViewTrailer.setLayoutManager(new LinearLayoutManager(this)); //trailer moview
+        recyclerView.setLayoutManager(new LinearLayoutManager(this)); //review movie
+
+        moviewReview(data.getId()); //review movie
+        TrailerMovie(data.getId()); //trailer moview
     }
 
 
@@ -159,26 +173,21 @@ public class DetailMovie extends AppCompatActivity implements LoaderManager.Load
                     public void onResponse(Call<Trailer> call, final Response<Trailer> response) {
                         Log.d(MainActivity.class.getSimpleName(), "onResponse: ");
 
-                        Button buttonYoutube = (Button)findViewById(R.id.trailerButton);
-                        buttonYoutube.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                String videoKey = response.body().getResults().get(0).getKey();
-                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + videoKey));
-                                startActivity(intent);
+                        trailerList.clear();
+                        trailerList.addAll(response.body().getResults());
+                        trailerAdapter.notifyDataSetChanged();
 
-//                                try {
-//                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
-//                                    startActivity(intent);
-//                                } catch (ActivityNotFoundException ex) {
-//                                    Intent intent = new Intent(Intent.ACTION_VIEW,
-//                                            Uri.parse("http://www.youtube.com/watch?v=" + id));
-//                                    startActivity(intent);
+//                        Button buttonYoutube = (Button)findViewById(R.id.trailerButton);
+//                        buttonYoutube.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                String videoKey = response.body().getResults().get(0).getKey();
+//                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + videoKey));
+//                                startActivity(intent);
 //
-//                                }
-                            }
-
-                        });
+//                            }
+//
+//                        });
                     }
 
                     @Override
@@ -190,21 +199,6 @@ public class DetailMovie extends AppCompatActivity implements LoaderManager.Load
             }
         }.execute();
     }
-
-
-
-//    private void ClickTrailerMovie (String id) {
-//
-//        try {
-//            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
-//            startActivity(intent);
-//        } catch (ActivityNotFoundException ex) {
-//            Intent intent = new Intent(Intent.ACTION_VIEW,
-//                    Uri.parse("http://www.youtube.com/watch?v=" + id));
-//            startActivity(intent);
-//
-//        }
-//    }
 
 
 

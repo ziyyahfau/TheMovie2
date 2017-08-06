@@ -167,7 +167,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/reviewList"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp">
                 </android.support.v7.widget.RecyclerView>
@@ -199,36 +199,25 @@
                 android:textSize="20dp"
                 android:text="Trailers" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/trailerList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp">
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="15dp"
-                android:src="@drawable/ic_movie_icon" />
 
-            <Button
-                android:id="@+id/trailerButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:textSize="20dp"
-                android:textColor="@color/colorBlack"
-                android:text="Trailer"
-                android:background="@null"/>
-
-        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
