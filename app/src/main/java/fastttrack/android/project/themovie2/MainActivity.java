@@ -17,9 +17,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private List<Result> movieList = new ArrayList<Result>();
     private MovieAdapter movieAdapter;
     int selected = 1;
-    private GridLayoutManager gridLayoutManager;
+    //private GridLayoutManager gridLayoutManager;
     String KEY_STATE="scroll";
     String LIST="list";
 
@@ -67,31 +71,38 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         MovieList.setHasFixedSize(true);
         //actionMoviePopular();
         getAllMovie();
-        //TODO selected baca dari shared preference
+
     }
 
+
+    //for save data before destroy
     @Override
     protected void onSaveInstanceState(Bundle outState)  {
-        outState.putParcelable(KEY_STATE, gridLayoutManager.onSaveInstanceState());
-        outState.putSerializable(LIST, (Serializable)movieList);
+        //outState.putParcelable(KEY_STATE, gridLayoutManager.onSaveInstanceState());
+        outState.putParcelable(KEY_STATE, MovieList.getLayoutManager().onSaveInstanceState());
+        outState.putString(LIST, new GsonBuilder().create().toJson(movieList));
         super.onSaveInstanceState(outState);
     }
 
+    //restore data from savedInstance, data doesn't dessepear
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
         if(savedInstanceState != null){
             Parcelable savedRecycleLayoutState = savedInstanceState.getParcelable(KEY_STATE);
-            gridLayoutManager.onRestoreInstanceState(savedRecycleLayoutState);
+            MovieList.getLayoutManager().onRestoreInstanceState(savedRecycleLayoutState);
+            String strSavedMovieJson = savedInstanceState.getString(LIST);
+            Result[] arrSavedMovieList = new GsonBuilder().create().fromJson(strSavedMovieJson, Result[].class);
+            List<Result> savedMoviveList = Arrays.asList(arrSavedMovieList);
 
-            //TODO - ini kayaknya masih kurang buat yg restore list tapi gak tau mesti pake parcelable atau gimana :(
+            movieList.clear();
+            movieList.addAll(savedMoviveList);
+
         }
     }
 
-
-    //get All Movue
-
+    //get All Movie
     public  void getAllMovie (){
 
         new AsyncTask<String, String, String>() {

@@ -68,6 +68,7 @@ public class MovieFavProvider extends ContentProvider {
                         sortOrder
                 );
                 break;
+
             case FAV_ID:
                 long _id = ContentUris.parseId(uri);
                 retCursor = db.query(

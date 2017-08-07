@@ -176,18 +176,6 @@ public class DetailMovie extends AppCompatActivity implements LoaderManager.Load
                         trailerList.clear();
                         trailerList.addAll(response.body().getResults());
                         trailerAdapter.notifyDataSetChanged();
-
-//                        Button buttonYoutube = (Button)findViewById(R.id.trailerButton);
-//                        buttonYoutube.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//                                String videoKey = response.body().getResults().get(0).getKey();
-//                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + videoKey));
-//                                startActivity(intent);
-//
-//                            }
-//
-//                        });
                     }
 
                     @Override
