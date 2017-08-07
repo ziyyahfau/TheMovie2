@@ -123,9 +123,14 @@ public class DetailMovie extends AppCompatActivity implements LoaderManager.Load
         contentValues.put(COLUMN_ISFAVORITE, 1);
 
         //untuk akses konten provider
-        getContentResolver().insert(CONTENT_URI, contentValues);
+        //getContentResolver().insert(CONTENT_URI, contentValues); //ini insert favorite(setiap film yg di click as favprite dia nakal otomatis masuk ke db favprite)
 
-        Cursor c = getContentResolver().query(CONTENT_URI, null, null, null, null, null);
+        //update favorite, kalo udh ada di favoritedia bakal update jdi gak numpuk/double film yg di favorite-nya
+
+        getContentResolver().update(CONTENT_URI, contentValues, COUMN_ID + "=?", new String[]{String.valueOf(data.getId())});
+
+
+        //Cursor c = getContentResolver().query(CONTENT_URI, null, null, null, null, null);
         Log.d("bisaa", "");
     }
 
