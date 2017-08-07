@@ -1,9 +1,11 @@
 package fastttrack.android.project.themovie2;
 
 import android.content.ContentValues;
+import android.content.Entity;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.os.PersistableBundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -16,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,10 +49,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @BindView(R.id.movieList)
     RecyclerView MovieList;
-    private List<Result> movieList = new ArrayList<>();
+    private List<Result> movieList = new ArrayList<Result>();
     private MovieAdapter movieAdapter;
     int selected = 1;
-    String savedInstatiate;
+    private GridLayoutManager gridLayoutManager;
+    String KEY_STATE="scroll";
+    String LIST="list";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,17 +71,22 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-
-
+    protected void onSaveInstanceState(Bundle outState)  {
+        outState.putParcelable(KEY_STATE, gridLayoutManager.onSaveInstanceState());
+        outState.putSerializable(LIST, (Serializable)movieList);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
+        if(savedInstanceState != null){
+            Parcelable savedRecycleLayoutState = savedInstanceState.getParcelable(KEY_STATE);
+            gridLayoutManager.onRestoreInstanceState(savedRecycleLayoutState);
 
+            //TODO - ini kayaknya masih kurang buat yg restore list tapi gak tau mesti pake parcelable atau gimana :(
+        }
     }
 
 
