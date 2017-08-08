@@ -52,6 +52,8 @@ import static fastttrack.android.project.themovie2.DB.Database.FavEntry.COUMN_ID
  * Created by Fauziyyah Faturahma on 7/30/2017.
  */
 
+//commit now
+
 public class DetailMovie extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
     //@BindView(R.id.reviewList)
@@ -108,27 +110,45 @@ public class DetailMovie extends AppCompatActivity implements LoaderManager.Load
         recyclerView.setLayoutManager(new LinearLayoutManager(this)); //review movie
 
         moviewReview(data.getId()); //review movie
-        TrailerMovie(data.getId()); //trailer moview
+        TrailerMovie(data.getId()); //trailer movie
     }
 
 
+    //TODO - cek dulu movie_id udah ada blm di database, kalo udah ada jangan didave datanya tapi di apus, kalo belum ada baru di insert/save
+
+    //ini metode onClick favorite movie, kalo di mark as favorite semua data movie yg bersangkutan akan di push ke db
     public void FavoriteMovie (View view){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COUMN_ID, data.getId());
-        contentValues.put(COLUMN_TITLE, data.getTitle());
-        contentValues.put(COLUMN_POSTER, data.getPosterPath());
-        contentValues.put(COLUMN_SYNOPSIS, data.getOverview());
-        contentValues.put(COLUMN_RATING, data.getVoteAverage());
-        contentValues.put(COLUMN_DATERELEASE, data.getReleaseDate());
-        contentValues.put(COLUMN_ISFAVORITE, 1);
+        Cursor cursor = getContentResolver().query(CONTENT_URI, null, null, null, null, null);
+        if (cursor.getCount()== 0) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(COUMN_ID, data.getId());
+            contentValues.put(COLUMN_TITLE, data.getTitle());
+            contentValues.put(COLUMN_POSTER, data.getPosterPath());
+            contentValues.put(COLUMN_SYNOPSIS, data.getOverview());
+            contentValues.put(COLUMN_RATING, data.getVoteAverage());
+            contentValues.put(COLUMN_DATERELEASE, data.getReleaseDate());
+            contentValues.put(COLUMN_ISFAVORITE, 0);
 
-        //untuk akses konten provider
+            //getContentResolver().insert(CONTENT_URI, contentValues);
+            getContentResolver().update(CONTENT_URI, contentValues, COUMN_ID + "=?", new String[]{String.valueOf(data.getId())});
+        }
+
+        else {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(COUMN_ID, data.getId());
+            contentValues.put(COLUMN_TITLE, data.getTitle());
+            contentValues.put(COLUMN_POSTER, data.getPosterPath());
+            contentValues.put(COLUMN_SYNOPSIS, data.getOverview());
+            contentValues.put(COLUMN_RATING, data.getVoteAverage());
+            contentValues.put(COLUMN_DATERELEASE, data.getReleaseDate());
+            contentValues.put(COLUMN_ISFAVORITE, 1);
+
+            //getContentResolver().insert(CONTENT_URI, contentValues);
+            getContentResolver().update(CONTENT_URI, contentValues, COUMN_ID + "=?", new String[]{String.valueOf(data.getId())});
+        }
+
+        //untuk akses konten provider (insert)
         //getContentResolver().insert(CONTENT_URI, contentValues); //ini insert favorite(setiap film yg di click as favprite dia nakal otomatis masuk ke db favprite)
-
-        //update favorite, kalo udh ada di favoritedia bakal update jdi gak numpuk/double film yg di favorite-nya
-
-        getContentResolver().update(CONTENT_URI, contentValues, COUMN_ID + "=?", new String[]{String.valueOf(data.getId())});
-
 
         //Cursor c = getContentResolver().query(CONTENT_URI, null, null, null, null, null);
         Log.d("bisaa", "");
